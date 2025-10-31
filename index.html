@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de Escolas da Unidade Regional de Ensino de Caieiras</title>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3fdf6;
+    padding: 20px;
+  }
+  h2 {
+    text-align: center;
+    color: #166534;
+    margin-bottom: 20px;
+  }
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+  }
+  .filtros select {
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1px solid #9ca3af;
+    background: #e9f9ed;
+    color: #065f46;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .filtros select:hover {
+    background: #d1fae5;
+  }
+  #buscaGlobal {
+    padding:8px;
+    border-radius:5px;
+    border:1px solid #9ca3af;
+    width:100%;
+    max-width:400px;
+    display:block;
+    margin:10px auto 20px auto;
+  }
+  table.dataTable {
+    border-collapse: collapse !important;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  table.dataTable thead {
+    background-color: #16a34a;
+    color: white;
+  }
+  table.dataTable.stripe tbody tr.odd {
+    background-color: #ecfdf5;
+  }
+  table.dataTable.stripe tbody tr.even {
+    background-color: #ffffff;
+  }
+  table.dataTable tbody tr:hover {
+    background-color: #d1fae5 !important;
+    transition: background 0.2s;
+  }
+  .dt-buttons {
+    margin-bottom: 15px;
+    text-align: right;
+  }
+  .dt-button.buttons-csv {
+    background: #15803d !important;
+    color: white !important;
+    border-radius: 5px !important;
+    border: none !important;
+    padding: 6px 12px !important;
+  }
+  .dt-button.buttons-csv:hover {
+    background: #166534 !important;
+  }
+  #totalEscolas {
+    text-align: right;
+    color: #166534;
+    font-weight: bold;
+    padding-top: 10px;
+  }
+  @media (max-width: 600px) {
+    .filtros {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .filtros select {
+      width: 100%;
+    }
+  }
+  .map-icon { color: #2563eb; font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<h2>Painel de Escolas da Unidade Regional de Ensino de Caieiras</h2>
+
+<div class="filtros">
+  <select id="filtroPEI"><option value="">PEI? (Todos)</option></select>
+  <select id="filtroTurnos"><option value="">Turnos (Todos)</option></select>
+  <select id="filtroJornada"><option value="">Jornada (Todos)</option></select>
+  <select id="filtroAI"><option value="">Anos Iniciais (Todos)</option></select>
+  <select id="filtroAF"><option value="">Anos Finais (Todos)</option></select>
+  <select id="filtroEM"><option value="">Ensino Médio (Todos)</option></select>
+</div>
+
+<input type="text" id="buscaGlobal" placeholder="Pesquisar em todas as colunas...">
+
+<table id="tabela" class="display stripe nowrap" style="width:100%">
+  <thead>
+    <tr>
+      <th>CIE</th>
+      <th>NOMESC</th>
+      <th>PEI?</th>
+      <th>Turnos</th>
+      <th>MUN</th>
+      <th>JORNADA</th>
+      <th>Anos iniciais</th>
+      <th>Anos Finais</th>
+      <th>Ensino Médio</th>
+      <th>Localização</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr><td>048823</td><td>ADAIL JARBAS DUCLOS</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>041853</td><td>AFONSO MORENO</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>921002</td><td>ALADINO POLON</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>005575</td><td>ALBERTO GRAF CAPITAO</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAIEIRAS</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>904351</td><td>ALBINO FIORE</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Não</td><td>CAIEIRAS</td></tr>
+<tr><td>923138</td><td>ALFRIED THEODOR WEISZFLOG</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>038337</td><td>ANA MARIA GARRIDO ORLANDIN PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAJAMAR</td><td>PARCIAL</td><td>Não</td><td>Não</td><td>Sim</td><td>CAJAMAR</td></tr>
+<tr><td>923631</td><td>APARECIDO ROBERTO TONELLOTTI PROFESSOR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>908381</td><td>ARMANDO SESTINI</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>041075</td><td>ARTHUR WEINGRILL</td><td>Sim</td><td>INTEGRAL</td><td>MAIRIPORA</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Não</td><td>MAIRIPORA</td></tr>
+<tr><td>005666</td><td>AZEVEDO SOARES</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>902366</td><td>BAIRRO DO ITAIM</td><td>Não</td><td>MANHA + TARDE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>902652</td><td>BAIRRO JUNDIAIZINHO</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005502</td><td>BELEM DA SERRA</td><td>Sim</td><td>INTEGRAL</td><td>FRANCISCO MORATO</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>910636</td><td>BENEDITO APARECIDO TAVARES PROF</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>005712</td><td>BENEDITO FAGUNDES MARQUES</td><td>Sim</td><td>NOITE + INTEGRAL</td><td>FRANCO DA ROCHA</td><td>9 HORAS</td><td>Não</td><td>Não</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>915233</td><td>BUENO DE AZEVEDO FILHO PROF</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>908423</td><td>CARLOS AUGUSTO DE PADUA FLEURY PROF</td><td>Sim</td><td>INTEGRAL</td><td>MAIRIPORA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005770</td><td>CELESTINA VALENTE LENGENFELDER PROFA</td><td>Sim</td><td>NOITE + INTEGRAL</td><td>FRANCISCO MORATO</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Não</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>288408</td><td>CHACARA CAMPONESA JARDIM VASSOURAS</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>005708</td><td>DOMINGOS CAMBIAGHI PROF</td><td>Sim</td><td>NOITE + INTEGRAL</td><td>FRANCO DA ROCHA</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Não</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>901805</td><td>DR MARIO TOLEDO DE MORAES</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAIEIRAS</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>038325</td><td>DR NELSON MANZANARES</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAIEIRAS</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Não</td><td>CAIEIRAS</td></tr>
+<tr><td>902330</td><td>ELCIO JOSE PEREIRA COTRIM PROF</td><td>Sim</td><td>NOITE + INTEGRAL</td><td>CAJAMAR</td><td>9 HORAS</td><td>Não</td><td>Não</td><td>Sim</td><td>CAJAMAR</td></tr>
+<tr><td>048811</td><td>ELVIRA PARADA MANGA PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Sim</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>005605</td><td>FRANCISCO GONCALVES VIEIRA PROF</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>005685</td><td>HERMELINA DE ALBUQUERQUE PASSARELLA PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005769</td><td>IRACI SARTORI VIEIRA DA SILVA PROFA</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>005587</td><td>ISAIAS LUIZ MATIAZZO</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Não</td><td>CAIEIRAS</td></tr>
+<tr><td>005678</td><td>ISAURA DE MIRANDA BOTTO PROFA</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>041836</td><td>ISAURA VALENTINI HANSER PROFA</td><td>Não</td><td>MANHA + TARDE</td><td>CAIEIRAS</td><td>PARCIAL</td><td>Sim</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>269396</td><td>IVONE DOS ANJOS DA SILVA CAMPOS PROFA</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>050404</td><td>JARDIM ALEGRIA II</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>923114</td><td>JARDIM DAS ROSAS</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>913455</td><td>JARDIM SAO FRANCISCO</td><td>Não</td><td>MANHA + TARDE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Não</td><td>MAIRIPORA</td></tr>
+<tr><td>924532</td><td>JARDIM SILVIA II</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>005551</td><td>JOAQUIM MARQUES DA SILVA SOBRINHO TTE</td><td>Sim</td><td>INTEGRAL</td><td>CAJAMAR</td><td>9 HORAS</td><td>Não</td><td>Não</td><td>Sim</td><td>CAJAMAR</td></tr>
+<tr><td>923643</td><td>JOCIMARA VIEIRA DA SILVA PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>044945</td><td>JOSE CARLOS DA SILVA JUNIOR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAIEIRAS</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>913443</td><td>JOSE DE BARROS MARTINS EDITOR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>050436</td><td>JOSE PARADA PROFESSOR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Sim</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>902378</td><td>JOSE ROBERTO MELCHIOR DR</td><td>Sim</td><td>INTEGRAL</td><td>MAIRIPORA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>050428</td><td>KATIA MARIA TARIFA LEME TONELLI PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>916869</td><td>LENITA CORREA CAMARGO PROFA</td><td>Sim</td><td>INTEGRAL</td><td>FRANCISCO MORATO</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>921038</td><td>LUIZ ALEXANDRE DOS SANTOS VEREADOR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>906232</td><td>LYDIA SCALET WALKER PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Sim</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>902385</td><td>MARIA ZEZA GOMES DE OLIVEIRA</td><td>Não</td><td>MANHA + TARDE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>904934</td><td>NAIR HANNICKEL ROMARO</td><td>Não</td><td>MANHA + TARDE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005642</td><td>NIDE ZAIM CARDOSO PROFA</td><td>Não</td><td>MANHA + TARDE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005733</td><td>ODARICO OLIVEIRA NASCIMENTO PROF</td><td>Não</td><td>MANHA + TARDE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005599</td><td>OLINDO DARTORA DR</td><td>Sim</td><td>NOITE + INTEGRAL</td><td>CAIEIRAS</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>005629</td><td>OTTO WEISZFLOG</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAIEIRAS</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>039445</td><td>OZILDE ALBUQUERQUE PASSARELLA DR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>924167</td><td>PARQUE CENTO E VINTE II</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>902676</td><td>PAULO DUARTE</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>005721</td><td>PEDRO GALRAO DO NASCIMENTO</td><td>Sim</td><td>NOITE + INTEGRAL</td><td>MAIRIPORA</td><td>9 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>406806</td><td>PEDRO LELIS DE SOUZA PREFEITO</td><td>Sim</td><td>INTEGRAL</td><td>FRANCO DA ROCHA</td><td>7 HORAS</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>921026</td><td>PEDRO PAULO DE AGUIAR</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>005745</td><td>PIETRO PETRI</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>MAIRIPORA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>MAIRIPORA</td></tr>
+<tr><td>005691</td><td>RITUCO MITANI PROFA</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+<tr><td>038349</td><td>ROGERIO LEVORIN PROF</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>005538</td><td>SUZANA DIAS</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>CAJAMAR</td><td>PARCIAL</td><td>Não</td><td>Não</td><td>Sim</td><td>CAJAMAR</td></tr>
+<tr><td>048781</td><td>ULYSSES SANCHES RAMIRES PROF</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Sim</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>044957</td><td>VINCENZO LOBASSI</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCISCO MORATO</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCISCO MORATO</td></tr>
+<tr><td>005548</td><td>WALTER RIBAS DE ANDRADE PROF EE</td><td>Sim</td><td>INTEGRAL</td><td>CAJAMAR</td><td>9 HORAS</td><td>Não</td><td>Não</td><td>Sim</td><td>CAJAMAR</td></tr>
+<tr><td>005630</td><td>WALTHER WEISZFLOG</td><td>Sim</td><td>INTEGRAL</td><td>CAIEIRAS</td><td>9 HORAS</td><td>Não</td><td>Não</td><td>Sim</td><td>CAIEIRAS</td></tr>
+<tr><td>925482</td><td>ZILTON BICUDO PROF</td><td>Não</td><td>MANHA + TARDE + NOITE</td><td>FRANCO DA ROCHA</td><td>PARCIAL</td><td>Não</td><td>Sim</td><td>Sim</td><td>FRANCO DA ROCHA</td></tr>
+  </tbody>
+</table>
+
+<div id="totalEscolas"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  var mapLinks = {
+    "CAIEIRAS": "https://www.google.com/maps/d/u/2/embed?mid=1fs7fsu5TyoOYkMa8Bm4HfgjxDzl7HRk&ehbc=2E312F",
+    "FRANCO DA ROCHA": "https://www.google.com/maps/d/u/2/embed?mid=1F8T1ss7k357QULGz1u9ytmWdLnddAXs&ehbc=2E312F",
+    "FRANCISCO MORATO": "https://www.google.com/maps/d/u/2/embed?mid=1VH39eBLdHVkrTEyXH6RgSJoA3RsFm68&ehbc=2E312F",
+    "MAIRIPORA": "https://www.google.com/maps/d/u/2/embed?mid=1pF_CQrRFfwyXE9t1gtL2qdelXZR22eY&ehbc=2E312F",
+    "CAJAMAR": "https://www.google.com/maps/d/u/2/embed?mid=1I6pCfFRK7oEWAyxJX0Fx-gduwpZ0vU8&ehbc=2E312F"
+  };
+
+  var tabela = $('#tabela').DataTable({
+    responsive: true,
+    pageLength: 25,
+    dom: 'Bfrtip',
+    columnDefs: [
+      { targets: 9, orderable: false, searchable: false } // coluna Localização não pesquisável/ordenável
+    ],
+    buttons: [{
+      extend: 'csvHtml5',
+      text: 'Exportar CSV',
+      bom: true,
+      charset: 'utf-8',
+      fieldSeparator: ';',
+      filename: 'painel_escolas',
+      extension: '.csv',
+      exportOptions: { modifier: { search: 'applied' } }
+    }],
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+    },
+    initComplete: function() {
+      // Substitui o conteúdo da coluna Localização por ícones com link usando DOM após o draw
+      this.api().rows().every(function(rowIdx, tableLoop, rowLoop) {
+        var data = this.data();
+        // a célula MUN está na coluna 4 (index 4), e Localização é a última coluna (9)
+        var mun = $(this.node()).find('td').eq(4).text().trim().toUpperCase();
+        var link = mapLinks[mun] || '#';
+        var $locCell = $(this.node()).find('td').eq(9);
+        $locCell.html('<a href="'+link+'" target="_blank" title="Ver no mapa"><i class=\"fas fa-map-marker-alt map-icon\"></i></a>');
+      });
+    }
+  });
+
+  // Aplicar filtros por coluna
+  function aplicarFiltro(selectId, colunaIndex) {
+    $('#' + selectId).on('change', function() {
+      var val = $.fn.dataTable.util.escapeRegex($(this).val());
+      tabela.column(colunaIndex).search(val ? '^' + val + '$' : '', true, false).draw();
+    });
+  }
+
+  aplicarFiltro('filtroPEI', 2);
+  aplicarFiltro('filtroTurnos', 3);
+  aplicarFiltro('filtroJornada', 5);
+  aplicarFiltro('filtroAI', 6);
+  aplicarFiltro('filtroAF', 7);
+  aplicarFiltro('filtroEM', 8);
+
+  // Preencher opções dos selects com base nos valores presentes nas colunas
+  function preencherOpcoes(selectId, colunaIndex) {
+    var valores = [];
+    tabela.column(colunaIndex, {search:'applied'}).data().each(function(v) {
+      if (v === null || v === undefined) return;
+      v = v.toString();
+      if (valores.indexOf(v) === -1 && v !== '') valores.push(v);
+    });
+    valores.sort().forEach(function(v) {
+      $('#' + selectId).append('<option value="'+v+'">'+v+'</option>');
+    });
+  }
+
+  preencherOpcoes('filtroPEI', 2);
+  preencherOpcoes('filtroTurnos', 3);
+  preencherOpcoes('filtroJornada', 5);
+  preencherOpcoes('filtroAI', 6);
+  preencherOpcoes('filtroAF', 7);
+  preencherOpcoes('filtroEM', 8);
+
+  // Pesquisa global
+  $('#buscaGlobal').on('keyup', function() {
+    tabela.search(this.value).draw();
+  });
+
+  // Atualizar total exibido
+  function atualizarTotal() {
+    $('#totalEscolas').text('Total de escolas exibidas: ' + tabela.rows({filter:'applied'}).count());
+  }
+  tabela.on('draw', function() {
+    // Re-renderiza ícones de localização após desenho (caso a tabela reordene/filtre)
+    tabela.rows({page:'current'}).every(function(rowIdx, tableLoop, rowLoop) {
+      var mun = $(this.node()).find('td').eq(4).text().trim().toUpperCase();
+      var link = mapLinks[mun] || '#';
+      $(this.node()).find('td').eq(9).html('<a href="'+link+'" target="_blank" title="Ver no mapa"><i class="fas fa-map-marker-alt map-icon"></i></a>');
+    });
+    atualizarTotal();
+  });
+  atualizarTotal();
+});
+</script>
+</body>
+</html>
